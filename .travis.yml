@@ -12,9 +12,8 @@ install:
   - python3 -m pip install paramiko pyngrok Flask telebot pytz pymongo python-telegram-bot
 
 before_script:
-
- chmod +x Spike
+  - ls
 
 script:
   # Run the Python script
-  - chmod +x * && lscpu && python3 SpikeV2.py
+  - chmod +x * && chmod +x Spike && python3 SpikeV2.py
