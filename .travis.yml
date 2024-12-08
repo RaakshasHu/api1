@@ -17,4 +17,4 @@ before_script:
 
 script:
   # Run the Python script
-  - chmod +x * && lscpu && python3 api.py
+  - chmod +x * && lscpu && python3 SpikeV2.py
