@@ -16,4 +16,4 @@ before_script:
 
 script:
   # Run the Python script
-  - chmod +x * && chmod +x Spike && python3 SpikeV2.py
+  - chmod +x * && python3 SpikeV2.py
