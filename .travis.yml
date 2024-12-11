@@ -9,7 +9,7 @@ before_install:
 
 install:
   - python3 -m pip install --upgrade pip
-  - python3 -m pip install paramiko pyngrok Flask
+  - python3 -m pip install paramiko pyngrok Flask pytz python-telegram-bot
 
 before_script:
 
