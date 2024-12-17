@@ -1,4 +1,4 @@
-name: Run venom Workflow
+name: Run Soul Workflow
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
 
       - name: Install required packages which needed
         run: |
-          pip install telebot pymongo aiohttp
+          pip install requests
 
-      - name: Run venom.py
-        run: ls && python3 update.py
+      - name: Run soul.py
+        run: ls && python3 new.py
