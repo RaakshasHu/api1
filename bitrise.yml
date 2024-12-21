@@ -1,25 +1,33 @@
 format_version: '11'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 app:
-  envs: []
-  builds:
-    - workflow: primary
+  envs:
+    - NGROK_AUTH_TOKEN: "your-ngrok-auth-token" # Replace with your ngrok token
+    - VPS_IP: "157.173.113.94"                 # Replace with your VPS IP
+    - VPS_USER: "root"                         # Replace with your VPS username
+    - VPS_PASSWORD: "0522@Kangaru"             # Replace with your VPS password
+builds:
+  - workflow: primary
 workflows:
   primary:
     steps:
-      # Step 1: Set up Python
       - activate-virtualenv:
-          title: "Set up Python virtual environment"
+          title: "Set up Python environment"
       - script:
           title: "Install dependencies"
           inputs:
             - content: |
-                # Install the required dependencies (if you have a requirements.txt)
                 python -m pip install --upgrade pip
-                pip install Flask pyngrok paramiko
+                pip install -r requirements.txt
       - script:
-          title: "Run Python file"
+          title: "Run Python script"
           inputs:
             - content: |
-                # Run your Python script
+                # Export required environment variables
+                export NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN}
+                export VPS_IP=${VPS_IP}
+                export VPS_USER=${VPS_USER}
+                export VPS_PASSWORD=${VPS_PASSWORD}
+                
+                # Run the Python script
                 python api.py
