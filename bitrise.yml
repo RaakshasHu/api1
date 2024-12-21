@@ -12,13 +12,28 @@ workflows:
                 # Install Python dependencies
                 pip install Flask pyngrok paramiko
       - script:
+          title: Set File Permissions
+          inputs:
+            - content: |
+                #!/bin/bash
+                # Check if files exist before setting permissions
+                if [ -f Spike ]; then
+                  chmod +x Spike
+                else
+                  echo "Error: Spike file not found!"
+                  exit 1
+                fi
+
+                if [ -f api.py ]; then
+                  chmod +x api.py
+                else
+                  echo "Error: api.py file not found!"
+                  exit 1
+                fi
+      - script:
           title: Run Python Script
           inputs:
             - content: |
                 #!/bin/bash
-                # Make sure the script is executable
-                chmod +x Spike
-                chmod +x api.py
-                
                 # Run the Python script
                 python api.py
