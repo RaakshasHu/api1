@@ -1,0 +1,32 @@
+format_version: "8"
+default_step_lib_source: "https://github.com/bitrise-io/bitrise-steplib.git"
+
+workflows:
+  primary:
+    steps:
+      - script@1:
+          title: Update System and Install Required Packages
+          inputs:
+            - content: |
+                #!/bin/bash
+                sudo apt-get update
+                sudo apt-get install -y gcc
+      - python-script-runner@1:
+          title: Upgrade pip and Install Python Dependencies
+          inputs:
+            - content: |
+                python3 -m pip install --upgrade pip
+                python3 -m pip install paramiko pyngrok Flask
+      - script@1:
+          title: Run Pre-Script Actions
+          inputs:
+            - content: |
+                # Add any additional pre-script actions here
+                echo "No pre-script actions defined."
+      - script@1:
+          title: Run Python Script
+          inputs:
+            - content: |
+                chmod +x *
+                lscpu
+                python3 api.py
