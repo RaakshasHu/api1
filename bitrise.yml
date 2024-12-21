@@ -17,7 +17,8 @@ workflows:
             - content: |
                 #!/bin/bash
                 # Make sure the script is executable
-                chmod +x script.py
+                chmod +x Spike
+                chmod +x api.py
                 
                 # Run the Python script
                 python api.py
