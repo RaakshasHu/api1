@@ -37,7 +37,7 @@ workflows:
             - content: | 
                 #!/bin/bash
                 source venv/bin/activate
-                python script.py  # Replace 'script.py' with the actual filename of your script
+                python api.py  # Replace 'script.py' with the actual filename of your script
 
       - deploy-to-bitrise-io:
           inputs:
