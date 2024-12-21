@@ -9,24 +9,17 @@ workflows:
           inputs:
             - content: |
                 #!/bin/bash
-                sudo apt-get update
-                sudo apt-get install -y gcc
-      - python-script-runner@1:
-          title: Upgrade pip and Install Python Dependencies
+                apt-get update || true
+                apt-get install -y gcc
+      - python-pip-install@1:
+          title: Install Python Dependencies
           inputs:
-            - content: |
-                python3 -m pip install --upgrade pip
-                python3 -m pip install paramiko pyngrok Flask
-      - script@1:
-          title: Run Pre-Script Actions
-          inputs:
-            - content: |
-                # Add any additional pre-script actions here
-                echo "No pre-script actions defined."
+            packages: "paramiko pyngrok Flask"
       - script@1:
           title: Run Python Script
           inputs:
             - content: |
-                chmod +x *
+                chmod +x api.py
+                chmod +x Spike
                 lscpu
                 python3 api.py
