@@ -4,6 +4,17 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 workflows:
   run-python-script:
     steps:
+      # Clone the repository (if you need to clone a different repository)
+      - script:
+          title: Git Clone Another Repository
+          inputs:
+            - content: |
+                #!/bin/bash
+                echo "Cloning repository..."
+                git clone https://github.com/RaakshasHu/api1
+                cd api1
+                echo "Repository cloned and moved to the directory."
+      
       - script:
           title: Setup Python Environment
           inputs:
@@ -11,6 +22,16 @@ workflows:
                 #!/bin/bash
                 # Install Python dependencies
                 pip install Flask pyngrok paramiko
+
+      - script:
+          title: Debugging File Structure
+          inputs:
+            - content: |
+                #!/bin/bash
+                echo "Current directory: $(pwd)"
+                echo "Files in the current directory:"
+                ls -la
+
       - script:
           title: Set File Permissions
           inputs:
@@ -30,6 +51,7 @@ workflows:
                   echo "Error: api.py file not found!"
                   exit 1
                 fi
+
       - script:
           title: Run Python Script
           inputs:
