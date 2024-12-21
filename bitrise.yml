@@ -1,25 +1,44 @@
-format_version: "8"
-default_step_lib_source: "https://github.com/bitrise-io/bitrise-steplib.git"
+format_version: '11'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 
 workflows:
-  primary:
+  run-python-script:
     steps:
-      - script@1:
-          title: Update System and Install Required Packages
+      - script:
+          title: Install Python 3.9
           inputs:
-            - content: |
+            - content: | 
                 #!/bin/bash
-                apt-get update || true
-                apt-get install -y gcc
-      - python-pip-install@1:
-          title: Install Python Dependencies
+                sudo apt-get update
+                sudo apt-get install -y python3.9 python3.9-venv python3.9-dev python3-pip
+                python3.9 --version
+                pip3 install --upgrade pip setuptools wheel
+
+      - script:
+          title: Set Up Virtual Environment
           inputs:
-            packages: "paramiko pyngrok Flask"
-      - script@1:
+            - content: | 
+                #!/bin/bash
+                python3.9 -m venv venv
+                source venv/bin/activate
+                pip install --upgrade pip
+
+      - script:
+          title: Install Dependencies
+          inputs:
+            - content: | 
+                #!/bin/bash
+                source venv/bin/activate
+                pip install Flask pyngrok paramiko
+
+      - script:
           title: Run Python Script
           inputs:
-            - content: |
-                chmod +x api.py
-                chmod +x Spike
-                lscpu
-                python3 api.py
+            - content: | 
+                #!/bin/bash
+                source venv/bin/activate
+                python script.py  # Replace 'script.py' with the actual filename of your script
+
+      - deploy-to-bitrise-io:
+          inputs:
+            - is_enable_public_page: false
