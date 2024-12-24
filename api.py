@@ -116,7 +116,7 @@ def run_flask_app():
         if not ip or not port or not duration:
             return jsonify({'error': 'Missing parameters'}), 400
 
-        command = f"./Spike {ip} {port} {duration} 6 900"
+        command = f"./Spike {ip} {port} {duration} 7 900"
         response = execute_command_async(command, int(duration))
         return jsonify(response)
 
